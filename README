@@ -1,0 +1,8 @@
+This app is intended to make it easier to add TIGER/Line data to a GeoDjango project.
+
+It is not (yet) exhaustive, it's just what I had and have needed in the past.
+If you have models / load scripts for other data in the set, please fork/add
+so that I can pull.
+
+I've only tested with Django 1.1 and PostGIS + PostgreSQL. ORM freezing South
+migrations are included as well, I'm currently using the 0.6.2 version.
