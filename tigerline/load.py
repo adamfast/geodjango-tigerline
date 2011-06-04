@@ -5,41 +5,41 @@ from tigerline.models import Zipcode, State, County
 
 def zipcode_import(path='/root/tiger-line/'):
     zipcode_mapping = {
-        'code': 'ZCTA5CE00',
-        'mpoly': 'MULTIPOLYGON',
+        'code': 'ZCTA5CE10',
+        'mpoly': 'POLYGON',
     }
-    zipcode_shp = os.path.join(path, 'tl_2008_us_zcta500.shp')
+    zipcode_shp = os.path.join(path, 'tl_2010_us_zcta510.shp')
     lm = LayerMapping(Zipcode, zipcode_shp, zipcode_mapping)
     lm.save(verbose=True)
 
 def state_import(path='/root/tiger-line/'):
     state_mapping = {
-        'fips_code': 'STATEFP',
-        'usps_code': 'STUSPS',
-        'name': 'NAME',
-        'area_description_code': 'LSAD',
-        'feature_class_code': 'MTFCC',
-        'functional_status': 'FUNCSTAT',
-        'mpoly': 'MULTIPOLYGON',
+        'fips_code': 'STATEFP10',
+        'usps_code': 'STUSPS10',
+        'name': 'NAME10',
+        'area_description_code': 'LSAD10',
+        'feature_class_code': 'MTFCC10',
+        'functional_status': 'FUNCSTAT10',
+        'mpoly': 'POLYGON',
     }
-    state_shp = os.path.join(path, 'tl_2008_us_state.shp')
+    state_shp = os.path.join(path, 'tl_2010_us_state10.shp')
     lm = LayerMapping(State, state_shp, state_mapping)
     lm.save(verbose=True)
 
 def county_import(path='/root/tiger-line/'):
     county_mapping = {
-        'state_fips_code': 'STATEFP',
-        'fips_code': 'COUNTYFP',
-        'county_identifier': 'CNTYIDFP',
-        'name': 'NAME',
-        'name_and_description': 'NAMELSAD',
-        'legal_statistical_description': 'LSAD',
-        'fips_55_class_code': 'CLASSFP',
-        'feature_class_code': 'MTFCC',
-        'functional_status': 'FUNCSTAT',
-        'mpoly': 'MULTIPOLYGON',
+        'state_fips_code': 'STATEFP10',
+        'fips_code': 'COUNTYFP10',
+        'county_identifier': 'GEOID10',
+        'name': 'NAME10',
+        'name_and_description': 'NAMELSAD10',
+        'legal_statistical_description': 'LSAD10',
+        'fips_55_class_code': 'CLASSFP10',
+        'feature_class_code': 'MTFCC10',
+        'functional_status': 'FUNCSTAT10',
+        'mpoly': 'POLYGON',
     }
-    county_shp = os.path.join(path, 'tl_2008_us_county.shp')
+    county_shp = os.path.join(path, 'tl_2010_us_county10.shp')
     lm = LayerMapping(County, county_shp, county_mapping, encoding='LATIN1')
     lm.save(verbose=True)
 
@@ -56,14 +56,14 @@ if __name__ == '__main__':
         print("Begin: %s" % datetime.datetime.now())
         if import_zipcodes:
             print("Zipcode Start: %s" % datetime.datetime.now())
-            zipcode_import(path='/home/adam/Downloads/tigerline')
+            zipcode_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_zcta510')
             print("End Zipcode: %s" % datetime.datetime.now())
         if import_states:
             print("Start States: %s" % datetime.datetime.now())
-            state_import(path='/home/adam/Downloads/tigerline')
+            state_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_state10')
             print("End States: %s" % datetime.datetime.now())
         if import_counties:
             print("Start Counties: %s" % datetime.datetime.now())
-            county_import(path='/home/adam/Downloads/tigerline')
+            county_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_county10')
             print("End Counties: %s" % datetime.datetime.now())
         print("All Finished: %s" % datetime.datetime.now())
