@@ -37,6 +37,10 @@ class County(models.Model):
 
     objects = models.GeoManager()
 
+    def state(self):
+        my_state = State.objects.get(fips_code=self.state_fips_code)
+        return my_state
+
     class Meta:
         verbose_name_plural = 'Counties'
 
