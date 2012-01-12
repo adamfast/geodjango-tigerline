@@ -1,6 +1,13 @@
-import os
+import os, sys
+from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from django.contrib.gis.utils import LayerMapping
+
+try:
+    from django.contrib.gis.utils import LayerMapping
+except ImportError:
+    print("gdal is required")
+    sys.exit(1)
+
 from tigerline.models import Zipcode, State, County
 
 def zipcode_import(path='/root/tiger-line/'):
@@ -44,26 +51,33 @@ def county_import(path='/root/tiger-line/'):
     lm.save(verbose=True)
 
 
-if __name__ == '__main__':
+class Command(BaseCommand):
+    args = '[base path]'
+    help = 'Installs the 2010 tigerline files for all zipcodes, all states, and all counties'
     import_zipcodes = True
     import_states = True
     import_counties = True
 
-    if settings.DEBUG:
-        print('With DEBUG on this will DIE. Change it and ask again.')
-    else:
+    def handle(self, *args, **kwargs):
+        try:
+            path = args[0]
+        except IndexError:
+            path = '/Users/afast/Public/tigerline-2010/'
+
+        # With DEBUG on this will DIE.
+        settings.DEBUG = False
         import datetime
         print("Begin: %s" % datetime.datetime.now())
-        if import_zipcodes:
+        if self.import_zipcodes:
             print("Zipcode Start: %s" % datetime.datetime.now())
-            zipcode_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_zcta510')
+            zipcode_import(path=os.path.join(path, 'tl_2010_us_zcta510'))
             print("End Zipcode: %s" % datetime.datetime.now())
-        if import_states:
+        if self.import_states:
             print("Start States: %s" % datetime.datetime.now())
-            state_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_state10')
+            state_import(path=os.path.join(path, 'tl_2010_us_state10'))
             print("End States: %s" % datetime.datetime.now())
-        if import_counties:
+        if self.import_counties:
             print("Start Counties: %s" % datetime.datetime.now())
-            county_import(path='/Users/afast/Public/tigerline-2010/tl_2010_us_county10')
+            county_import(path=os.path.join(path, 'tl_2010_us_county10'))
             print("End Counties: %s" % datetime.datetime.now())
         print("All Finished: %s" % datetime.datetime.now())
