@@ -6,3 +6,24 @@ so that I can pull.
 
 I've only tested with Django 1.1 and PostGIS + PostgreSQL. ORM freezing South
 migrations are included as well, I'm currently using the 0.6.2 version.
+
+Install
+-------
+
+Download the 2010 Tigerline files for all zipcodes, all states, and all counties
+
+http://www.census.gov/cgi-bin/geo/shapefiles2010/main
+
+* Zipcode Tabulation Areas (for all states)
+* States (and Equivalents) (for all states)
+* Counties (and Equivalents) (for all states)
+
+Unzip the files
+
+Configure django.contrib.gis as described in the django docs.
+
+Add "django.contrib.gis" and "tigerline" to INSTALLED_APPS
+
+run `python manage.py syncdb` or `python manage.py migrate` as approporiate
+run `python manage.py load_tigerline ~/Path/to/shapefiles`
+
