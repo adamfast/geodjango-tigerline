@@ -1,7 +1,8 @@
 from django.contrib.gis.db import models
 
+
 class Zipcode(models.Model):
-    code = models.CharField(max_length=5)
+    code = models.CharField(max_length=5, db_index=True)
     mpoly = models.MultiPolygonField()
 
     objects = models.GeoManager()
@@ -9,10 +10,14 @@ class Zipcode(models.Model):
     def __unicode__(self):
         return self.code
 
+    class Meta:
+        ordering = ['code']
+
+
 class State(models.Model):
     fips_code = models.CharField('FIPS Code', max_length=2)
-    usps_code = models.CharField('USPS state abbreviation', max_length=2)
-    name = models.CharField(max_length=100)
+    usps_code = models.CharField('USPS state abbreviation', max_length=2, db_index=True)
+    name = models.CharField(max_length=100, db_index=True)
     area_description_code = models.CharField(max_length=2)
     feature_class_code = models.CharField(max_length=5)
     functional_status = models.CharField(max_length=1)
@@ -22,6 +27,10 @@ class State(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
+
 
 class County(models.Model):
     state_fips_code = models.CharField('State FIPS Code', max_length='2')
