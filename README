@@ -1,11 +1,10 @@
-This app is intended to make it easier to add TIGER/Line data to a GeoDjango project.
+This app is intended to make it easier to add TIGER/Line data to a GeoDjango project and save people from writing this same code over and over (collectively).
 
 It is not (yet) exhaustive, it's just what I had and have needed in the past.
-If you have models / load scripts for other data in the set, please fork/add
-so that I can pull.
+If you have models / load scripts for other data in the set, please fork/add and send me a pull request if you add other shapefiles. If you come up with useful manager methods, I'd love to see those too.
 
-I've only tested with Django 1.1 and PostGIS + PostgreSQL. ORM freezing South
-migrations are included as well, I'm currently using the 0.6.2 version.
+It's been tested and used with Django 1.1 to 1.4 and PostGIS + PostgreSQL. ORM freezing South
+migrations are included as well, I'm currently using the 0.7.3 version.
 
 Install
 -------
@@ -25,5 +24,11 @@ Configure django.contrib.gis as described in the django docs.
 Add "django.contrib.gis" and "tigerline" to INSTALLED_APPS
 
 run `python manage.py syncdb` or `python manage.py migrate` as approporiate
-run `python manage.py load_tigerline ~/Path/to/shapefiles`
 
+If you want to import all three:
+run `python manage.py load_tigerline --path=~/Path/to/shapefiles`
+
+Or there are individual management commands if you only need one set:
+run `python manage.py load_counties --path=~/Path/to/shapefiles`
+run `python manage.py load_states --path=~/Path/to/shapefiles`
+run `python manage.py load_zipcodes --path=~/Path/to/shapefiles`
