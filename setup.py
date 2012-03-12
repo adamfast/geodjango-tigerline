@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name='geodjango-tigerline',
-    version='0.1',
+    version='1.0',
     description='A resuable app with the boilerplate necessary for getting TIGER/LINE data into a GeoDjango project.',
     author='Adam Fast',
     author_email='adamfast@gmail.com',
@@ -20,9 +20,9 @@ setup(
     zip_safe=False,
     long_description=read('README'),
     license = "BSD",
-    keywords = "django geodjango tiger",
+    keywords = "django geodjango tigerline",
     classifiers = [
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Django",
         "Intended Audience :: Developers",
