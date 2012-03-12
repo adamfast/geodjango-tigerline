@@ -3,6 +3,8 @@ This app is intended to make it easier to add TIGER/Line data to a GeoDjango pro
 It is not (yet) exhaustive, it's just what I had and have needed in the past.
 If you have models / load scripts for other data in the set, please fork/add and send me a pull request if you add other shapefiles. If you come up with useful manager methods, I'd love to see those too.
 
+*NOTE: If you need cities, the best source for that is the US National Atlas. I have an app for those at https://github.com/adamfast/usgsdata-citiesx020
+
 It's been tested and used with Django 1.1 to 1.4 and PostGIS + PostgreSQL. ORM freezing South
 migrations are included as well, I'm currently using the 0.7.3 version.
 
