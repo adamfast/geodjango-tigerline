@@ -15,15 +15,14 @@ except ImportError:
 from tigerline.models import Zipcode
 
 
-def zipcode_import(path):
-    if path:
-        zipcode_mapping = {
-            'code': 'ZCTA5CE10',
-            'mpoly': 'POLYGON',
-        }
-        zipcode_shp = os.path.join(path, 'tl_2010_us_zcta510.shp')
-        lm = LayerMapping(Zipcode, zipcode_shp, zipcode_mapping)
-        lm.save(verbose=True)
+def zipcode_import(zipcode_shp):
+    zipcode_mapping = {
+        'code': 'ZCTA5CE10',
+        'mpoly': 'POLYGON',
+    }
+
+    lm = LayerMapping(Zipcode, zipcode_shp, zipcode_mapping)
+    lm.save(verbose=True)
 
 
 class Command(BaseCommand):
@@ -39,6 +38,17 @@ class Command(BaseCommand):
         # With DEBUG on this will DIE.
         settings.DEBUG = False
 
+        # figure out which path we want to use.
+        if os.path.exists(os.path.join(path, 'tl_2012_us_zcta510')):
+            print('Found 2012 files.')
+            path = os.path.join(path, 'tl_2012_us_zcta510/tl_2012_us_zcta510.shp')
+        elif os.path.exists(os.path.join(path, 'tl_2010_us_zcta510')):
+            print('Found 2010 files.')
+            path = os.path.join(path, 'tl_2010_us_zcta510/tl_2010_us_zcta510.shp')
+        else:
+            print('Could not find files.')
+            exit()
+
         print("Zipcode Start: %s" % datetime.datetime.now())
-        zipcode_import(path=os.path.join(path, 'tl_2010_us_zcta510'))
+        zipcode_import(path)
         print("End Zipcode: %s" % datetime.datetime.now())
