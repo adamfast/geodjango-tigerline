@@ -18,7 +18,7 @@ class Command(BaseCommand):
         make_option('--path', default='', dest='path',
             help='The directory where the TIGER/LINE data is stored.'),
     )
-    help = 'Installs the 2010/2011/2012 TIGER/LINE files for all zipcodes, all states, and all counties'
+    help = 'Installs the 2010/2011/2012/2013 TIGER/LINE files for all zipcodes, all states, and all counties'
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']

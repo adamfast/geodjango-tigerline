@@ -16,7 +16,7 @@ from tigerline.models import County
 
 
 def county_import(county_shp):
-    if '2012' in county_shp or '2011' in county_shp:
+    if '2013' in county_shp or '2012' in county_shp or '2011' in county_shp:
         county_mapping = {
             'state_fips_code': 'STATEFP',
             'fips_code': 'COUNTYFP',
@@ -60,7 +60,10 @@ class Command(BaseCommand):
         settings.DEBUG = False
 
         # figure out which path we want to use.
-        if os.path.exists(os.path.join(path, 'tl_2012_us_county')):
+        if os.path.exists(os.path.join(path, 'tl_2013_us_county')):
+            print('Found 2013 files.')
+            path = os.path.join(path, 'tl_2013_us_county/tl_2013_us_county.shp')
+        elif os.path.exists(os.path.join(path, 'tl_2012_us_county')):
             print('Found 2012 files.')
             path = os.path.join(path, 'tl_2012_us_county/tl_2012_us_county.shp')
         elif os.path.exists(os.path.join(path, 'tl_2011_us_county')):
