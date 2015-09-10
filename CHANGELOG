@@ -1,0 +1,7 @@
+1.0.1   9/10/2015
+Tested with Django 1.8 and upgraded loaders to work with latest 2015 edition of TIGER/LINE.
+
+... no new PyPI releases. I'm terrible for that. But as time went on I had added 2012/2013/2014 load capability.
+
+1.0     3/13/2012
+Tested up to Django 1.2, loaders for TIGER/LINE 2010/2011
