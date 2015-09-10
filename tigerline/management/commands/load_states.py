@@ -16,7 +16,7 @@ from tigerline.models import State
 
 
 def state_import(state_shp):
-    if '2014' in state_shp or '2013' in state_shp or '2012' in state_shp or '2011' in state_shp:
+    if '2015' in state_shp or '2014' in state_shp or '2013' in state_shp or '2012' in state_shp or '2011' in state_shp:
         state_mapping = {
             'fips_code': 'STATEFP',
             'usps_code': 'STUSPS',
@@ -45,7 +45,7 @@ class Command(BaseCommand):
         make_option('--path', default='', dest='path',
             help='The directory where the state data is stored.'),
     )
-    help = 'Installs the 2010 tigerline files for states'
+    help = 'Installs the 2010-2015 tigerline files for states'
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']
@@ -53,7 +53,10 @@ class Command(BaseCommand):
         # With DEBUG on this will DIE.
         settings.DEBUG = False
 
-        if os.path.exists(os.path.join(path, 'tl_2014_us_state')):
+        if os.path.exists(os.path.join(path, 'tl_2015_us_state')):
+            print('Found 2015 files.')
+            path = os.path.join(path, 'tl_2015_us_state/tl_2015_us_state.shp')
+        elif os.path.exists(os.path.join(path, 'tl_2014_us_state')):
             print('Found 2014 files.')
             path = os.path.join(path, 'tl_2014_us_state/tl_2014_us_state.shp')
         elif os.path.exists(os.path.join(path, 'tl_2013_us_state')):

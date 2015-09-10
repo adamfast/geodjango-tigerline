@@ -16,7 +16,7 @@ from tigerline.models import County
 
 
 def county_import(county_shp):
-    if '2014' in county_shp or '2013' in county_shp or '2012' in county_shp or '2011' in county_shp:
+    if '2015' in county_shp or '2014' in county_shp or '2013' in county_shp or '2012' in county_shp or '2011' in county_shp:
         county_mapping = {
             'state_fips_code': 'STATEFP',
             'fips_code': 'COUNTYFP',
@@ -51,7 +51,7 @@ class Command(BaseCommand):
         make_option('--path', default='', dest='path',
             help='The directory where the county data is stored.'),
     )
-    help = 'Installs the 2010 tigerline files for counties'
+    help = 'Installs the 2010-2015 tigerline files for counties'
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']
@@ -60,7 +60,10 @@ class Command(BaseCommand):
         settings.DEBUG = False
 
         # figure out which path we want to use.
-        if os.path.exists(os.path.join(path, 'tl_2014_us_county')):
+        if os.path.exists(os.path.join(path, 'tl_2015_us_county')):
+            print('Found 2015 files.')
+            path = os.path.join(path, 'tl_2015_us_county/tl_2015_us_county.shp')
+        elif os.path.exists(os.path.join(path, 'tl_2014_us_county')):
             print('Found 2014 files.')
             path = os.path.join(path, 'tl_2014_us_county/tl_2014_us_county.shp')
         elif os.path.exists(os.path.join(path, 'tl_2013_us_county')):

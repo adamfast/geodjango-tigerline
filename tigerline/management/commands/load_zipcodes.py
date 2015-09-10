@@ -30,7 +30,7 @@ class Command(BaseCommand):
         make_option('--path', default='', dest='path',
             help='The directory where the zipcode data is stored.'),
     )
-    help = 'Installs the 2010/2012/2013/2014 tigerline files for zipcodes'
+    help = 'Installs the 2010/2012/2013/2014/2015 tigerline files for zipcodes'
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']
@@ -39,7 +39,10 @@ class Command(BaseCommand):
         settings.DEBUG = False
 
         # figure out which path we want to use.
-        if os.path.exists(os.path.join(path, 'tl_2014_us_zcta510')):
+        if os.path.exists(os.path.join(path, 'tl_2015_us_zcta510')):
+            print('Found 2015 files.')
+            path = os.path.join(path, 'tl_2015_us_zcta510/tl_2015_us_zcta510.shp')
+        elif os.path.exists(os.path.join(path, 'tl_2014_us_zcta510')):
             print('Found 2014 files.')
             path = os.path.join(path, 'tl_2014_us_zcta510/tl_2014_us_zcta510.shp')
         elif os.path.exists(os.path.join(path, 'tl_2013_us_zcta510')):
