@@ -14,11 +14,12 @@ except ImportError:
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--path', default='', dest='path',
-            help='The directory where the TIGER/LINE data is stored.'),
-    )
     help = 'Installs the 2010/2011/2012/2013 TIGER/LINE files for all zipcodes, all states, and all counties'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--path', default='', dest='path',
+            help='The directory where the TIGER/LINE data is stored.'),
+        )
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']

@@ -47,11 +47,12 @@ def county_import(county_shp):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--path', default='', dest='path',
-            help='The directory where the county data is stored.'),
-    )
     help = 'Installs the 2010-2015 tigerline files for counties'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--path', default='', dest='path',
+            help='The directory where the county data is stored.'
+        )
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']

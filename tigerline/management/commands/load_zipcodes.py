@@ -26,11 +26,12 @@ def zipcode_import(zipcode_shp):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--path', default='', dest='path',
-            help='The directory where the zipcode data is stored.'),
-    )
     help = 'Installs the 2010/2012/2013/2014/2015 tigerline files for zipcodes'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--path', default='', dest='path',
+            help='The directory where the zipcode data is stored.'
+        )
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']

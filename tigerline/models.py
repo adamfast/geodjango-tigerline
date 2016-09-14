@@ -33,7 +33,7 @@ class State(models.Model):
 
 
 class County(models.Model):
-    state_fips_code = models.CharField('State FIPS Code', max_length='2')
+    state_fips_code = models.CharField('State FIPS Code', max_length=2)
     fips_code = models.CharField('FIPS Code', max_length=3)
     county_identifier = models.CharField(max_length=5)
     name = models.CharField(max_length=100)
