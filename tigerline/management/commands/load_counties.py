@@ -14,22 +14,8 @@ except ImportError:
 
 from tigerline.models import County
 
-
-def county_import(county_shp):
-    if '2015' in county_shp or '2014' in county_shp or '2013' in county_shp or '2012' in county_shp or '2011' in county_shp:
-        county_mapping = {
-            'state_fips_code': 'STATEFP',
-            'fips_code': 'COUNTYFP',
-            'county_identifier': 'GEOID',
-            'name': 'NAME',
-            'name_and_description': 'NAMELSAD',
-            'legal_statistical_description': 'LSAD',
-            'fips_55_class_code': 'CLASSFP',
-            'feature_class_code': 'MTFCC',
-            'functional_status': 'FUNCSTAT',
-            'mpoly': 'POLYGON',
-        }
-    else:
+def county_import(county_shp, year):
+    if year == "2010":
         county_mapping = {
             'state_fips_code': 'STATEFP10',
             'fips_code': 'COUNTYFP10',
@@ -42,12 +28,25 @@ def county_import(county_shp):
             'functional_status': 'FUNCSTAT10',
             'mpoly': 'POLYGON',
         }
+    else:
+        county_mapping = {
+            'state_fips_code': 'STATEFP',
+            'fips_code': 'COUNTYFP',
+            'county_identifier': 'GEOID',
+            'name': 'NAME',
+            'name_and_description': 'NAMELSAD',
+            'legal_statistical_description': 'LSAD',
+            'fips_55_class_code': 'CLASSFP',
+            'feature_class_code': 'MTFCC',
+            'functional_status': 'FUNCSTAT',
+            'mpoly': 'POLYGON',
+        }
     lm = LayerMapping(County, county_shp, county_mapping, encoding='LATIN1')
     lm.save(verbose=True)
 
 
 class Command(BaseCommand):
-    help = 'Installs the 2010-2015 tigerline files for counties'
+    help = 'Installs the 2010-2016 tigerline files for counties'
 
     def add_arguments(self, parser):
         parser.add_argument('--path', default='', dest='path',
@@ -61,29 +60,23 @@ class Command(BaseCommand):
         settings.DEBUG = False
 
         # figure out which path we want to use.
-        if os.path.exists(os.path.join(path, 'tl_2015_us_county')):
-            print('Found 2015 files.')
-            path = os.path.join(path, 'tl_2015_us_county/tl_2015_us_county.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2014_us_county')):
-            print('Found 2014 files.')
-            path = os.path.join(path, 'tl_2014_us_county/tl_2014_us_county.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2013_us_county')):
-            print('Found 2013 files.')
-            path = os.path.join(path, 'tl_2013_us_county/tl_2013_us_county.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2012_us_county')):
-            print('Found 2012 files.')
-            path = os.path.join(path, 'tl_2012_us_county/tl_2012_us_county.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2011_us_county')):
-            print('Found 2011 files.')
-            path = os.path.join(path, 'tl_2011_us_county/tl_2011_us_county.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2010_us_county10')):
-            print('Found 2010 files.')
-            path = os.path.join(path, 'tl_2010_us_county10/tl_2010_us_county10.shp')
-        else:
+        years = ["2016", "2015", "2014", "2013", "2012", "2011", "2010"]
+        directories = [('tl_%s_us_county' % year, year) for year in years]
+
+        for (directory, year) in directories:
+            if year == "2010":
+                directory = directory + "10"
+
+            if os.path.exists(os.path.join(path, directory)):
+                print('Found %s files.' % year)
+                tiger_file = os.path.join(path, directory + "/" + directory + ".shp")
+                break
+
+        if not tiger_file:
             print('Could not find files.')
             exit()
 
         print("Start Counties: %s" % datetime.datetime.now())
         if path:
-            county_import(path)
+            county_import(tiger_file, year)
         print("End Counties: %s" % datetime.datetime.now())
