@@ -43,6 +43,7 @@ class Command(BaseCommand):
         years = ["2016", "2015", "2014", "2013", "2012", "2010"]
         directories = [('tl_%s_us_zcta510' % year, year) for year in years]
 
+        tiger_file = ""
         for (directory, year) in directories:
             if os.path.exists(os.path.join(path, directory)):
                 print('Found %s files.' % year)

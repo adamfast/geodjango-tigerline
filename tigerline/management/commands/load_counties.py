@@ -63,6 +63,7 @@ class Command(BaseCommand):
         years = ["2016", "2015", "2014", "2013", "2012", "2011", "2010"]
         directories = [('tl_%s_us_county' % year, year) for year in years]
 
+        tiger_file = ""
         for (directory, year) in directories:
             if year == "2010":
                 directory = directory + "10"
