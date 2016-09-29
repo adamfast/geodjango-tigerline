@@ -74,6 +74,5 @@ class Command(BaseCommand):
             exit()
 
         print("Start States: %s" % datetime.datetime.now())
-        if path:
-            state_import(tiger_file, year)
+        state_import(tiger_file, year)
         print("End States: %s" % datetime.datetime.now())

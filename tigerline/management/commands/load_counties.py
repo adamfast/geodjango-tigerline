@@ -78,6 +78,5 @@ class Command(BaseCommand):
             exit()
 
         print("Start Counties: %s" % datetime.datetime.now())
-        if path:
-            county_import(tiger_file, year)
+        county_import(tiger_file, year)
         print("End Counties: %s" % datetime.datetime.now())
