@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--path', default='', dest='path',
-            help='The directory where the TIGER/LINE data is stored.'),
+            help='The directory where the TIGER/LINE data is stored.',
         )
 
     def handle(self, *args, **kwargs):
