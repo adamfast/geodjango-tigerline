@@ -5,18 +5,18 @@ If you have models / load scripts for other data in the set, please fork/add and
 
 * NOTE: If you need cities, the best source for that is the US National Atlas. I have an app for those at https://github.com/adamfast/usgsdata-citiesx020
 
-It's been tested and used with Django 1.8 and PostGIS + PostgreSQL. I've used it with other versions since 1.1 over time but it's probably best on 1.6+ now.
+It's been tested and used with Django 1.10 and PostGIS + PostgreSQL.
 
 Install
 -------
 
-Download the 2015 Tigerline files for all zipcodes, all states, and all counties
+Download the 2016 Tigerline files for all zipcodes, all states, and all counties
 
-ftp://ftp2.census.gov/geo/tiger/TIGER2015/
+ftp://ftp2.census.gov/geo/tiger/TIGER2016/
 
-* Zipcode Tabulation Areas (for all states) - see ZCTA5/ folder, download tl_2015_us_zcta510.zip
-* States (and Equivalents) (for all states) - see STATE/ folder, download tl_2015_us_state.zip
-* Counties (and Equivalents) (for all states) - see COUNTY/ folder, download tl_2015_us_county.zip
+* States - ftp://ftp2.census.gov/geo/tiger/TIGER2016/STATE/tl_2016_us_state.zip
+* Counties - ftp://ftp2.census.gov/geo/tiger/TIGER2016/COUNTY/tl_2016_us_county.zip
+* Zipcodes - ftp://ftp2.census.gov/geo/tiger/TIGER2016/ZCTA5/tl_2016_us_zcta510.zip
 
 Unzip the files
 

@@ -26,11 +26,12 @@ def zipcode_import(zipcode_shp):
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--path', default='', dest='path',
-            help='The directory where the zipcode data is stored.'),
-    )
-    help = 'Installs the 2010/2012/2013/2014/2015 tigerline files for zipcodes'
+    help = 'Installs the 2010-2106 tigerline files for zipcodes'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--path', default='', dest='path',
+            help='The directory where the zipcode data is stored.'
+        )
 
     def handle(self, *args, **kwargs):
         path = kwargs['path']
@@ -39,25 +40,20 @@ class Command(BaseCommand):
         settings.DEBUG = False
 
         # figure out which path we want to use.
-        if os.path.exists(os.path.join(path, 'tl_2015_us_zcta510')):
-            print('Found 2015 files.')
-            path = os.path.join(path, 'tl_2015_us_zcta510/tl_2015_us_zcta510.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2014_us_zcta510')):
-            print('Found 2014 files.')
-            path = os.path.join(path, 'tl_2014_us_zcta510/tl_2014_us_zcta510.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2013_us_zcta510')):
-            print('Found 2013 files.')
-            path = os.path.join(path, 'tl_2013_us_zcta510/tl_2013_us_zcta510.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2012_us_zcta510')):
-            print('Found 2012 files.')
-            path = os.path.join(path, 'tl_2012_us_zcta510/tl_2012_us_zcta510.shp')
-        elif os.path.exists(os.path.join(path, 'tl_2010_us_zcta510')):
-            print('Found 2010 files.')
-            path = os.path.join(path, 'tl_2010_us_zcta510/tl_2010_us_zcta510.shp')
-        else:
+        years = ["2016", "2015", "2014", "2013", "2012", "2010"]
+        directories = [('tl_%s_us_zcta510' % year, year) for year in years]
+
+        tiger_file = ""
+        for (directory, year) in directories:
+            if os.path.exists(os.path.join(path, directory)):
+                print('Found %s files.' % year)
+                tiger_file = os.path.join(path, directory + "/" + directory + ".shp")
+                break
+
+        if not tiger_file:
             print('Could not find files.')
             exit()
 
         print("Zipcode Start: %s" % datetime.datetime.now())
-        zipcode_import(path)
+        zipcode_import(tiger_file)
         print("End Zipcode: %s" % datetime.datetime.now())
