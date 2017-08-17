@@ -1,3 +1,8 @@
+1.1.0   8/17/2017
+Merged Django 1.9/1.10 upgrades from GitHub contributors billyburly and jlillest - thank you!
+Merged updated loader files (compatible through 2016 versions) also from GitHub contributors billyburly and jlillest.
+Tested with Django 1.11.
+
 1.0.1   9/10/2015
 Tested with Django 1.8 and upgraded loaders to work with latest 2015 edition of TIGER/LINE.
 
