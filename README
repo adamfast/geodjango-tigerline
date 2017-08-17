@@ -14,9 +14,9 @@ Download the 2016 Tigerline files for all zipcodes, all states, and all counties
 
 ftp://ftp2.census.gov/geo/tiger/TIGER2016/
 
-* States - ftp://ftp2.census.gov/geo/tiger/TIGER2016/STATE/tl_2016_us_state.zip
-* Counties - ftp://ftp2.census.gov/geo/tiger/TIGER2016/COUNTY/tl_2016_us_county.zip
-* Zipcodes - ftp://ftp2.census.gov/geo/tiger/TIGER2016/ZCTA5/tl_2016_us_zcta510.zip
+* States (and Territories) - ftp://ftp2.census.gov/geo/tiger/TIGER2016/STATE/tl_2016_us_state.zip
+* Counties (for all States / Territories - ftp://ftp2.census.gov/geo/tiger/TIGER2016/COUNTY/tl_2016_us_county.zip
+* Zipcode Tabulation Areas (for all States / Territories, these are NOT actual zip codes which describe specific mail routes) - ftp://ftp2.census.gov/geo/tiger/TIGER2016/ZCTA5/tl_2016_us_zcta510.zip
 
 Unzip the files
 
